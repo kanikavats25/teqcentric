@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Company - Digital Consulting & Enterprise Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0B1F3A',
+                        coolGrey: '#6B7280',
+                        lightGrey: '#F3F4F6',
+                        accent: '#00A9A5'
+                    },
+                    fontFamily: {
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter text-coolGrey bg-white">
+    <!-- Header -->
+    <header class="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-lightGrey z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="font-montserrat font-bold text-2xl text-navy">Your Company</div>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="text-coolGrey hover:text-navy transition-colors">Services</a>
+                    <a href="#case-studies" class="text-coolGrey hover:text-navy transition-colors">Case Studies</a>
+                    <a href="#insights" class="text-coolGrey hover:text-navy transition-colors">Insights</a>
+                    <a href="#about" class="text-coolGrey hover:text-navy transition-colors">About</a>
+                    <a href="#contact" class="text-coolGrey hover:text-navy transition-colors">Contact</a>
+                    <button class="bg-accent text-white px-6 py-2 rounded-lg font-montserrat font-semibold hover:bg-accent/90 transition-colors">
+                        Let's Talk
+                    </button>
+                </nav>
+                <button class="md:hidden text-navy">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-navy to-navy/90 text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 40px 40px;"></div>
+        </div>
+        <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32">
+            <div class="max-w-4xl">
+                <h1 class="font-montserrat font-bold text-5xl md:text-7xl leading-tight mb-6">
+                    Enterprise outcomes, <span class="text-accent">accelerated.</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed max-w-3xl">
+                    We design and deliver digital consulting, cloud transformation, and modern workplace solutions that move the metrics that matter.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="bg-accent text-white px-8 py-4 rounded-lg font-montserrat font-semibold text-lg hover:bg-accent/90 transition-colors">
+                        Book a Consultation
+                    </button>
+                    <button class="border-2 border-white text-white px-8 py-4 rounded-lg font-montserrat font-semibold text-lg hover:bg-white hover:text-navy transition-colors">
+                        See Case Studies
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-montserrat font-bold text-4xl md:text-5xl text-navy mb-6">Our Services</h2>
+                <p class="text-xl text-coolGrey max-w-3xl mx-auto">Comprehensive solutions designed to accelerate your digital transformation journey</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="bg-lightGrey/50 p-8 rounded-xl hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-montserrat font-bold text-xl text-navy mb-4">Cloud & DevOps Enablement</h3>
+                    <p class="text-coolGrey mb-4">Accelerate delivery with CI/CD, IaC, and SRE best practices.</p>
+                    <ul class="text-sm text-coolGrey space-y-2">
+                        <li>• Pipeline automation</li>
+                        <li>• Infrastructure as code</li>
+                        <li>• Observability & monitoring</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-lightGrey/50 p-8 rounded-xl hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-montserrat font-bold text-xl text-navy mb-4">Data & AI Strategy</h3>
+                    <p class="text-coolGrey mb-4">Modernize data platforms and operationalize AI securely.</p>
+                    <ul class="text-sm text-coolGrey space-y-2">
+                        <li>• Data lakehouse architecture</li>
+                        <li>• ML operations & governance</li>
+                        <li>• Applied AI use cases</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-lightGrey/50 p-8 rounded-xl hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-montserrat font-bold text-xl text-navy mb-4">Modern Workplace & ITSM</h3>
+                    <p class="text-coolGrey mb-4">ServiceNow, M365, and employee experience at scale.</p>
+                    <ul class="text-sm text-coolGrey space-y-2">
+                        <li>• ServiceNow implementation</li>
+                        <li>• Microsoft 365 optimization</li>
+                        <li>• Employee experience design</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="bg-lightGrey/50 p-8 rounded-xl hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-montserrat font-bold text-xl text-navy mb-4">Enterprise Architecture</h3>
+                    <p class="text-coolGrey mb-4">Blueprints and roadmaps aligned to business goals.</p>
+                    <ul class="text-sm text-coolGrey space-y-2">
+                        <li>• Strategic roadmapping</li>
+                        <li>• System integration design</li>
+                        <li>• Technology governance</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="bg-lightGrey/50 p-8 rounded-xl hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-montserrat font-bold text-xl text-navy mb-4">Cyber & Compliance</h3>
+                    <p class="text-coolGrey mb-4">Risk reduction, zero-trust patterns, and audits.</p>
+                    <ul class="text-sm text-coolGrey space-y-2">
+                        <li>• Zero-trust architecture</li>
+                        <li>• Compliance frameworks</li>
+                        <li>• Security assessments</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems → Solutions Section -->
+    <section class="py-24 bg-lightGrey/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-montserrat font-bold text-4xl md:text-5xl text-navy mb-6">Problems We Solve</h2>
+                <p class="text-xl text-coolGrey max-w-3xl mx-auto">Transforming enterprise challenges into competitive advantages</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-montserrat font-semibold text-navy mb-2">Siloed teams, slow releases</h3>
+                            <div class="w-8 h-0.5 bg-accent mb-3"></div>
+                            <p class="text-coolGrey">Cross-functional delivery pods & CI/CD automation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-montserrat font-semibold text-navy mb-2">Legacy platforms & tech debt</h3>
+                            <div class="w-8 h-0.5 bg-accent mb-3"></div>
+                            <p class="text-coolGrey">Roadmaps, refactoring, and phased modernization</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-montserrat font-semibold text-navy mb-2">Low adoption & ROI</h3>
+                            <div class="w-8 h-0.5 bg-accent mb-3"></div>
+                            <p class="text-coolGrey">Change enablement, training, and KPIs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="case-studies" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-montserrat font-bold text-4xl md:text-5xl text-navy mb-6">Client Success Stories</h2>
+                <p class="text-xl text-coolGrey max-w-3xl mx-auto">Real results from enterprise transformations</p>
+            </div>
+            
+            <!-- Client Logos -->
+            <div class="flex justify-center items-center space-x-12 mb-16 opacity-60">
+                <div class="font-montserrat font-bold text-2xl text-coolGrey">ACME Corp</div>
+                <div class="font-montserrat font-bold text-2xl text-coolGrey">TechFlow</div>
+                <div class="font-montserrat font-bold text-2xl text-coolGrey">GlobalTech</div>
+                <div class="font-montserrat font-bold text-2xl text-coolGrey">InnovateCo</div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-lightGrey/30 p-8 rounded-xl">
+                    <div class="text-accent font-montserrat font-semibold text-sm uppercase tracking-wide mb-4">Cloud Migration</div>
+                    <h3 class="font-montserrat font-bold text-2xl text-navy mb-4">Fortune 500 Retailer Reduces Infrastructure Costs by 40%</h3>
+                    <p class="text-coolGrey mb-6">Complete cloud migration with automated CI/CD pipelines, resulting in faster deployments and significant cost savings.</p>
+                    <div class="flex items-center text-accent font-montserrat font-semibold">
+                        Read Case Study
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="bg-lightGrey/30 p-8 rounded-xl">
+                    <div class="text-accent font-montserrat font-semibold text-sm uppercase tracking-wide mb-4">Digital Transformation</div>
+                    <h3 class="font-montserrat font-bold text-2xl text-navy mb-4">Manufacturing Giant Achieves 60% Faster Time-to-Market</h3>
+                    <p class="text-coolGrey mb-6">Modern workplace implementation with ServiceNow and M365, streamlining operations across 15 global offices.</p>
+                    <div class="flex items-center text-accent font-montserrat font-semibold">
+                        Read Case Study
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights Section -->
+    <section id="insights" class="py-24 bg-lightGrey/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-montserrat font-bold text-4xl md:text-5xl text-navy mb-6">Latest Insights</h2>
+                <p class="text-xl text-coolGrey max-w-3xl mx-auto">Expert perspectives on enterprise technology trends</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <article class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="h-48 bg-gradient-to-br from-accent/20 to-navy/20"></div>
+                    <div class="p-6">
+                        <div class="text-accent font-montserrat font-semibold text-sm uppercase tracking-wide mb-2">Cloud Strategy</div>
+                        <h3 class="font-montserrat font-bold text-xl text-navy mb-3">The Future of Multi-Cloud Architecture</h3>
+                        <p class="text-coolGrey mb-4">How enterprises are leveraging multiple cloud providers for resilience and cost optimization.</p>
+                        <div class="flex items-center text-accent font-montserrat font-semibold">
+                            Read Article
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="h-48 bg-gradient-to-br from-navy/20 to-accent/20"></div>
+                    <div class="p-6">
+                        <div class="text-accent font-montserrat font-semibold text-sm uppercase tracking-wide mb-2">AI & Data</div>
+                        <h3 class="font-montserrat font-bold text-xl text-navy mb-3">Operationalizing AI at Enterprise Scale</h3>
+                        <p class="text-coolGrey mb-4">Best practices for implementing MLOps and ensuring responsible AI deployment.</p>
+                        <div class="flex items-center text-accent font-montserrat font-semibold">
+                            Read Article
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="h-48 bg-gradient-to-br from-accent/20 to-navy/20"></div>
+                    <div class="p-6">
+                        <div class="text-accent font-montserrat font-semibold text-sm uppercase tracking-wide mb-2">DevOps</div>
+                        <h3 class="font-montserrat font-bold text-xl text-navy mb-3">Platform Engineering: The Next Evolution</h3>
+                        <p class="text-coolGrey mb-4">How platform teams are accelerating developer productivity and reducing cognitive load.</p>
+                        <div class="flex items-center text-accent font-montserrat font-semibold">
+                            Read Article
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 bg-navy text-white">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="font-montserrat font-bold text-4xl md:text-5xl mb-6">Ready to unlock enterprise velocity?</h2>
+            <p class="text-xl text-white/90 mb-12 max-w-3xl mx-auto">Let's discuss how we can accelerate your digital transformation and drive measurable business outcomes.</p>
+            <button class="bg-accent text-white px-12 py-4 rounded-lg font-montserrat font-semibold text-lg hover:bg-accent/90 transition-colors">
+                Start a Project
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-lightGrey py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="font-montserrat font-bold text-2xl text-navy mb-4">Your Company</div>
+                    <p class="text-coolGrey mb-6 max-w-md">Digital consulting and enterprise solutions that accelerate business outcomes through strategic technology implementation.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-coolGrey hover:text-accent transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-coolGrey hover:text-accent transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-coolGrey hover:text-accent transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-montserrat font-semibold text-navy mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-coolGrey">
+                        <li><a href="#" class="hover:text-accent transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Legal</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-montserrat font-semibold text-navy mb-4">Contact</h4>
+                    <ul class="space-y-2 text-coolGrey">
+                        <li>hello@yourcompany.com</li>
+                        <li>+1 (555) 123-4567</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-lightGrey mt-12 pt-8 text-center text-coolGrey">
+                <p>&copy; 2024 Your Company. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('shadow-lg');
+            } else {
+                header.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'975cf4df97211df5',t:'MTc1NjMxMjI1OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
