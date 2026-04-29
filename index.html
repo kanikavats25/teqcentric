@@ -1,616 +1,780 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeqCentric Solutions - Digital Consulting & Enterprise Solutions</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        navy: '#0B1F3A',
-                        coolGrey: '#6B7280',
-                        lightGrey: '#F3F4F6',
-                        accent: '#00A9A5'
-                    },
-                    fontFamily: {
-                        'montserrat': ['Montserrat', 'sans-serif'],
-                        'inter': ['Inter', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TeqCentric Solutions — OpenText Enterprise Consulting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:   #070d1a;
+      --navy2:  #0e1726;
+      --steel:  #172035;
+      --teal:   #0ea89a;
+      --teal2:  #12c9b8;
+      --sky:    #3b9eda;
+      --white:  #eef2fb;
+      --muted:  #7a8da8;
+      --card:   rgba(255,255,255,0.03);
+      --border: rgba(255,255,255,0.07);
+      --radius: 12px;
+      --fh: 'Playfair Display', Georgia, serif;
+      --fb: 'Inter', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--navy); color: var(--white); font-family: var(--fb); font-size: 15px; line-height: 1.7; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%; height: 68px;
+      background: rgba(7,13,26,0.93); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border); transition: height .3s;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { width: 32px; height: 32px; border-radius: 7px; }
+    .nav-brand { font-family: var(--fb); font-size: 1rem; font-weight: 700; color: var(--white); }
+    .nav-brand em { color: var(--teal); font-style: normal; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.83rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--teal); color: #fff; font-family: var(--fb); font-weight: 600;
+      font-size: 0.82rem; border: none; border-radius: 7px; padding: 9px 20px;
+      cursor: pointer; text-decoration: none; transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: var(--teal2); transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 6% 80px; overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 860px; height: 500px; pointer-events: none;
+      background: radial-gradient(ellipse at 35% 45%, rgba(14,168,154,0.13) 0%, transparent 58%),
+                  radial-gradient(ellipse at 68% 55%, rgba(59,158,218,0.08) 0%, transparent 52%);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(14,168,154,0.1); border: 1px solid rgba(14,168,154,0.26);
+      color: var(--teal); font-size: 0.71rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 100px; margin-bottom: 30px;
+      animation: fadeUp .5s ease both;
+    }
+    .hero-badge-dot { width: 6px; height: 6px; background: var(--teal); border-radius: 50%; }
+    h1 {
+      font-family: var(--fh); font-weight: 800;
+      font-size: clamp(2.3rem, 5.2vw, 4.2rem);
+      line-height: 1.1; letter-spacing: -0.3px;
+      max-width: 780px; margin-bottom: 22px;
+      animation: fadeUp .6s .08s ease both;
+    }
+    h1 .accent { color: var(--teal); }
+    .hero-sub {
+      font-size: 1rem; color: var(--muted); max-width: 530px;
+      line-height: 1.78; margin-bottom: 42px; font-weight: 400;
+      animation: fadeUp .6s .16s ease both;
+    }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; animation: fadeUp .6s .24s ease both; }
+    .btn-p {
+      background: var(--teal); color: #fff; font-family: var(--fb); font-weight: 600;
+      font-size: 0.88rem; border: none; border-radius: 8px; padding: 13px 28px;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 0 26px rgba(14,168,154,0.26);
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-p:hover { background: var(--teal2); transform: translateY(-2px); box-shadow: 0 0 36px rgba(14,168,154,0.4); }
+    .btn-o {
+      background: transparent; color: var(--white); font-family: var(--fb); font-weight: 500;
+      font-size: 0.88rem; border: 1px solid rgba(255,255,255,0.14); border-radius: 8px;
+      padding: 13px 28px; cursor: pointer; text-decoration: none;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-o:hover { border-color: var(--teal); background: rgba(14,168,154,0.06); }
+    .hero-stats {
+      display: flex; gap: 50px; justify-content: center; flex-wrap: wrap;
+      margin-top: 68px; padding-top: 34px; border-top: 1px solid var(--border);
+      animation: fadeUp .6s .32s ease both;
+    }
+    .stat { text-align: center; }
+    .stat-n { font-family: var(--fh); font-weight: 800; font-size: 2rem; color: var(--teal); display: block; letter-spacing: -0.5px; }
+    .stat-l { font-size: 0.77rem; color: var(--muted); margin-top: 2px; }
+
+    /* SECTIONS */
+    section { position: relative; z-index: 1; }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 6%; }
+    .sh { text-align: center; margin-bottom: 58px; }
+    .ey { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--teal); margin-bottom: 14px; }
+    h2 { font-family: var(--fh); font-weight: 800; font-size: clamp(1.7rem, 3vw, 2.5rem); letter-spacing: -0.2px; line-height: 1.18; }
+    .ss { font-size: 0.93rem; color: var(--muted); max-width: 510px; margin: 12px auto 0; line-height: 1.75; }
+
+    /* SERVICES */
+    #services { padding: 106px 0; }
+    .sg { display: grid; grid-template-columns: repeat(auto-fit, minmax(295px, 1fr)); gap: 18px; }
+    .sc {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 30px 26px; position: relative; overflow: hidden;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+    }
+    .sc::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, var(--teal), var(--sky));
+      transform: scaleX(0); transform-origin: left; transition: transform .3s ease;
+    }
+    .sc:hover { border-color: rgba(14,168,154,0.28); transform: translateY(-3px); box-shadow: 0 14px 46px rgba(0,0,0,0.28); }
+    .sc:hover::after { transform: scaleX(1); }
+    .si { width: 42px; height: 42px; border-radius: 10px; background: rgba(14,168,154,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 16px; }
+    .sc h3 { font-family: var(--fb); font-weight: 700; font-size: 0.97rem; margin-bottom: 9px; color: var(--white); }
+    .sc p { font-size: 0.84rem; color: var(--muted); line-height: 1.7; }
+    .sb { list-style: none; margin-top: 14px; }
+    .sb li { font-size: 0.81rem; color: var(--muted); padding: 5px 0; display: flex; gap: 8px; border-bottom: 1px solid var(--border); }
+    .sb li:last-child { border-bottom: none; }
+    .sb li::before { content: '›'; color: var(--teal); font-weight: 700; font-size: 0.95rem; line-height: 1.4; flex-shrink: 0; }
+
+    /* CHALLENGES */
+    #challenges { padding: 94px 0; background: linear-gradient(180deg, transparent, rgba(23,32,53,0.35) 50%, transparent); }
+    .chg { display: grid; grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); gap: 14px; }
+    .chc { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 22px; transition: border-color .2s; }
+    .chc:hover { border-color: rgba(14,168,154,0.26); }
+    .chc .prob { font-size: 0.79rem; color: var(--muted); margin-bottom: 10px; }
+    .chc .sol { font-size: 0.87rem; color: var(--white); font-weight: 500; padding-top: 10px; border-top: 1px solid var(--border); }
+    .chc .sol strong { color: var(--teal); }
+
+    /* CASE STUDIES */
+    #case-studies { padding: 106px 0; }
+    .cag { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 22px; }
+    .cac { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: transform .25s, box-shadow .25s, border-color .25s; }
+    .cac:hover { transform: translateY(-3px); box-shadow: 0 16px 46px rgba(0,0,0,0.3); border-color: rgba(14,168,154,0.22); }
+    .cas { height: 4px; background: linear-gradient(90deg, var(--teal), var(--sky)); }
+    .cas.alt { background: linear-gradient(90deg, #3b9eda, #6366f1); }
+    .cab { padding: 26px 24px; }
+    .cat { display: inline-block; font-size: 0.69rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--teal); background: rgba(14,168,154,0.1); border-radius: 100px; padding: 3px 12px; margin-bottom: 12px; }
+    .cac h3 { font-family: var(--fb); font-weight: 700; font-size: 0.97rem; line-height: 1.4; margin-bottom: 9px; color: var(--white); }
+    .cac p { font-size: 0.83rem; color: var(--muted); line-height: 1.72; }
+    .cl { display: inline-flex; align-items: center; gap: 6px; color: var(--teal); font-size: 0.81rem; font-weight: 600; text-decoration: none; margin-top: 16px; transition: gap .2s; }
+    .cl:hover { gap: 10px; }
+
+    /* INSIGHTS */
+    #insights { padding: 106px 0; background: linear-gradient(180deg, transparent, rgba(23,32,53,0.28) 50%, transparent); }
+    .ing { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+    .inc { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 22px; transition: border-color .25s, transform .25s; }
+    .inc:hover { border-color: rgba(14,168,154,0.26); transform: translateY(-3px); }
+    .int { font-size: 0.69rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--sky); background: rgba(59,158,218,0.1); border-radius: 100px; padding: 3px 12px; display: inline-block; margin-bottom: 13px; }
+    .inc h3 { font-family: var(--fb); font-weight: 700; font-size: 0.95rem; line-height: 1.45; margin-bottom: 9px; color: var(--white); }
+    .inc p { font-size: 0.82rem; color: var(--muted); line-height: 1.72; }
+    .rm { display: inline-flex; align-items: center; gap: 6px; color: var(--teal); font-size: 0.81rem; font-weight: 600; text-decoration: none; margin-top: 14px; transition: gap .2s; }
+    .rm:hover { gap: 10px; }
+
+    /* ABOUT */
+    #about { padding: 106px 0; }
+    .ag { display: grid; grid-template-columns: 1fr 1fr; gap: 76px; align-items: center; }
+    .at h2 { text-align: left; }
+    .at p { color: var(--muted); line-height: 1.8; margin-top: 14px; font-size: 0.9rem; }
+    .as { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+    .asc { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 16px; text-align: center; }
+    .asc .n { font-family: var(--fh); font-weight: 800; font-size: 1.85rem; color: var(--teal); display: block; letter-spacing: -0.4px; }
+    .asc .l { font-size: 0.76rem; color: var(--muted); margin-top: 3px; display: block; }
+    .certs { display: flex; flex-direction: column; gap: 10px; }
+    .ci2 { display: flex; align-items: center; gap: 13px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px 17px; }
+    .cico { width: 36px; height: 36px; border-radius: 8px; background: rgba(14,168,154,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.05rem; flex-shrink: 0; }
+    .ci2 span { font-size: 0.86rem; font-weight: 500; color: var(--white); }
+
+    /* CONTACT */
+    #contact { padding: 106px 0; }
+    .cog { display: grid; grid-template-columns: 1fr 1.5fr; gap: 52px; align-items: start; }
+    .coi h2 { text-align: left; }
+    .coi p { color: var(--muted); margin-top: 13px; line-height: 1.8; font-size: 0.9rem; }
+    .coit { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+    .coitem { display: flex; gap: 13px; align-items: flex-start; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px 17px; }
+    .coin { width: 34px; height: 34px; border-radius: 8px; background: rgba(14,168,154,0.1); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0; }
+    .colabel { font-size: 0.69rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+    .coval { font-size: 0.87rem; font-weight: 500; margin-top: 2px; }
+    .coval a { color: var(--white); text-decoration: none; }
+    .coval a:hover { color: var(--teal); }
+    .cf { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px 28px; }
+    .fr { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .fg { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    label { font-size: 0.72rem; font-weight: 600; color: var(--muted); letter-spacing: 0.8px; text-transform: uppercase; }
+    input, textarea, select {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 7px; color: var(--white); font-family: var(--fb);
+      font-size: 0.87rem; padding: 10px 13px; outline: none; width: 100%;
+      transition: border-color .2s, background .2s;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--teal); background: rgba(14,168,154,0.04); }
+    select option { background: #111827; }
+    textarea { resize: vertical; min-height: 108px; }
+    .fsub {
+      width: 100%; background: var(--teal); color: #fff; font-family: var(--fb);
+      font-weight: 600; font-size: 0.88rem; border: none; border-radius: 7px;
+      padding: 12px; cursor: pointer; transition: background .2s, transform .15s; margin-top: 4px;
+    }
+    .fsub:hover { background: var(--teal2); transform: translateY(-1px); }
+    .fsub:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .fmsg { font-size: 0.82rem; padding: 10px 13px; border-radius: 6px; margin-top: 10px; display: none; font-weight: 500; }
+    .fmsg.ok { background: rgba(14,168,154,0.12); color: var(--teal); border: 1px solid rgba(14,168,154,0.24); display: block; }
+    .fmsg.err { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.22); display: block; }
+
+    /* MODAL */
+    .mo {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(4,8,18,0.9); backdrop-filter: blur(14px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    .mo.open { opacity: 1; pointer-events: all; }
+    .mb {
+      background: #0e1726; border: 1px solid rgba(14,168,154,0.17);
+      border-radius: 16px; max-width: 600px; width: 100%;
+      max-height: 88vh; overflow-y: auto; padding: 38px 34px;
+      position: relative; transform: translateY(16px) scale(0.98);
+      transition: transform .3s ease;
+      scrollbar-width: thin; scrollbar-color: var(--steel) transparent;
+    }
+    .mo.open .mb { transform: translateY(0) scale(1); }
+    .mcl {
+      position: absolute; top: 14px; right: 14px;
+      background: rgba(255,255,255,0.06); border: none; color: var(--muted);
+      width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
+      font-size: 0.95rem; display: flex; align-items: center; justify-content: center;
+      transition: background .2s, color .2s;
+    }
+    .mcl:hover { background: rgba(14,168,154,0.15); color: var(--white); }
+    .mtag { display: inline-block; font-size: 0.69rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal); background: rgba(14,168,154,0.1); border-radius: 100px; padding: 3px 13px; margin-bottom: 14px; }
+    .mb h3 { font-family: var(--fb); font-weight: 700; font-size: 1.28rem; letter-spacing: -0.1px; line-height: 1.3; margin-bottom: 14px; color: var(--white); }
+    .mbt p { color: var(--muted); line-height: 1.8; margin-bottom: 11px; font-size: 0.87rem; }
+    .mbt ul { list-style: none; margin: 12px 0 14px; }
+    .mbt li { color: var(--muted); font-size: 0.86rem; padding: 6px 0; display: flex; gap: 9px; border-bottom: 1px solid var(--border); }
+    .mbt li:last-child { border-bottom: none; }
+    .mbt li::before { content: '›'; color: var(--teal); font-weight: 700; font-size: 0.95rem; line-height: 1.5; flex-shrink: 0; }
+    .mbt strong { color: var(--white); font-weight: 600; }
+    .mdiv { height: 1px; background: var(--border); margin: 22px 0; }
+    .mft { font-size: 0.87rem; font-weight: 600; color: var(--white); margin-bottom: 14px; }
+    .mfsub { width: 100%; background: var(--teal); color: #fff; font-family: var(--fb); font-weight: 600; font-size: 0.87rem; border: none; border-radius: 7px; padding: 12px; cursor: pointer; transition: background .2s; margin-top: 4px; }
+    .mfsub:hover { background: var(--teal2); }
+    .mfsub:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* CTA */
+    .ctab { margin: 54px auto; max-width: 1080px; padding: 0 6%; }
+    .ctai {
+      background: linear-gradient(135deg, var(--steel) 0%, #102030 100%);
+      border: 1px solid rgba(14,168,154,0.16); border-radius: 18px;
+      padding: 58px 54px; text-align: center; position: relative; overflow: hidden;
+    }
+    .ctai::before {
+      content: ''; position: absolute; top: -56px; left: 50%; transform: translateX(-50%);
+      width: 460px; height: 260px;
+      background: radial-gradient(ellipse, rgba(14,168,154,0.12) 0%, transparent 68%); pointer-events: none;
+    }
+    .ctai h2 { font-size: clamp(1.6rem, 2.8vw, 2.3rem); margin-bottom: 11px; }
+    .ctai p { color: var(--muted); margin-bottom: 28px; max-width: 460px; margin-left: auto; margin-right: auto; font-size: 0.92rem; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 42px 6% 26px; }
+    .fi { max-width: 1160px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
+    .fl { font-family: var(--fb); font-weight: 700; font-size: 0.93rem; color: var(--white); }
+    .fl em { color: var(--teal); font-style: normal; }
+    .fnl { display: flex; gap: 22px; list-style: none; }
+    .fnl a { color: var(--muted); text-decoration: none; font-size: 0.81rem; transition: color .2s; }
+    .fnl a:hover { color: var(--white); }
+    .fc { font-size: 0.76rem; color: var(--muted); max-width: 1160px; margin: 26px auto 0; text-align: center; padding-top: 20px; border-top: 1px solid var(--border); }
+    .fc a { color: var(--muted); text-decoration: none; }
+    .fc a:hover { color: var(--teal); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (max-width: 860px) {
+      .ag, .cog { grid-template-columns: 1fr; gap: 38px; }
+      .nav-links { display: none; }
+      .ctai { padding: 40px 22px; }
+      .mb { padding: 26px 20px; }
+    }
+    @media (max-width: 560px) {
+      .hero-stats { gap: 22px; }
+      .fr { grid-template-columns: 1fr; }
+      .cf { padding: 22px 16px; }
+    }
+  </style>
 </head>
-<body class="font-inter text-coolGrey bg-white">
-    <!-- Header -->
-    <header class="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-lightGrey z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-               <div class="flex items-center space-x-3" aria-label="Teqcentric logo">
-                <img src="icon-original.png" alt="Teqcentric Logo" class="w-10 h-10">
-                <span class="font-montserrat font-bold text-2xl text-navy">TeqCentric Solutions</span> 
-               </div>
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#services" class="text-coolGrey hover:text-navy transition-colors">Services</a>
-                    <a href="#case-studies" class="text-coolGrey hover:text-navy transition-colors">Case Studies</a>
-                    <a href="#insights" class="text-coolGrey hover:text-navy transition-colors">Insights</a>
-                    <a href="#about" class="text-coolGrey hover:text-navy transition-colors">About</a>
-                    <a href="#contact" class="text-coolGrey hover:text-navy transition-colors">Contact</a>
-                    <button class="bg-accent text-white px-6 py-2 rounded-lg font-montserrat font-semibold hover:bg-accent/90 transition-colors">
-                        Let's Talk
-                    </button>
-                </nav>
-                <button class="md:hidden text-navy">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">
+    <img src="https://www.teqcentric.com/icon-original.png" alt="TeqCentric" onerror="this.style.display='none'" />
+    <span class="nav-brand">Teq<em>Centric</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#challenges">Solutions</a></li>
+    <li><a href="#case-studies">Case Studies</a></li>
+    <li><a href="#insights">Insights</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book a Consultation</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge"><span class="hero-badge-dot"></span>OpenText Certified Specialists · Calgary, AB</div>
+  <h1>Unlock the Power of Your<br /><span class="accent">Enterprise Information</span></h1>
+  <p class="hero-sub">We help enterprises streamline content, automate processes, and maximize ROI with customized OpenText solutions — delivered by certified consultants with 15+ years of experience.</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-p">Book a Consultation</a>
+    <a href="#case-studies" class="btn-o">View Case Studies</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-n">200+</span><span class="stat-l">Projects Delivered</span></div>
+    <div class="stat"><span class="stat-n">15+</span><span class="stat-l">Years Experience</span></div>
+    <div class="stat"><span class="stat-n">50+</span><span class="stat-l">Enterprise Clients</span></div>
+    <div class="stat"><span class="stat-n">24/7</span><span class="stat-l">Support Available</span></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sh reveal">
+      <span class="ey">What We Do</span>
+      <h2>Our OpenText Services</h2>
+      <p class="ss">Comprehensive OpenText solutions designed to unlock the full potential of your enterprise information.</p>
+    </div>
+    <div class="sg">
+      <div class="sc reveal">
+        <div class="si">📂</div>
+        <h3>Content Management &amp; Collaboration</h3>
+        <p>Centralize documents and records for easy access and enhanced team collaboration.</p>
+        <ul class="sb">
+          <li>Centralize documents and records for easy access</li>
+          <li>Enhance team collaboration with secure sharing</li>
+          <li>Ensure regulatory compliance effortlessly</li>
+        </ul>
+      </div>
+      <div class="sc reveal">
+        <div class="si">⚙️</div>
+        <h3>Business Process Automation</h3>
+        <p>Streamline workflows across departments and reduce manual operational bottlenecks.</p>
+        <ul class="sb">
+          <li>Streamline workflows across departments</li>
+          <li>Reduce manual effort and operational bottlenecks</li>
+          <li>Accelerate decision-making with automated processes</li>
+        </ul>
+      </div>
+      <div class="sc reveal">
+        <div class="si">🗄️</div>
+        <h3>Enterprise Information Management</h3>
+        <p>Organize and classify critical business data with advanced security controls.</p>
+        <ul class="sb">
+          <li>Organize and classify critical business data</li>
+          <li>Secure sensitive information with advanced controls</li>
+          <li>Make information easily searchable and actionable</li>
+        </ul>
+      </div>
+      <div class="sc reveal">
+        <div class="si">☁️</div>
+        <h3>Cloud &amp; Digital Transformation</h3>
+        <p>Deploy scalable cloud-based OpenText solutions and modernize IT infrastructure.</p>
+        <ul class="sb">
+          <li>Deploy scalable cloud-based OpenText solutions</li>
+          <li>Modernize IT infrastructure for future growth</li>
+          <li>Enable remote access and collaboration securely</li>
+        </ul>
+      </div>
+      <div class="sc reveal">
+        <div class="si">📊</div>
+        <h3>Data Analytics &amp; Reporting</h3>
+        <p>Extract actionable insights from enterprise data with interactive dashboards.</p>
+        <ul class="sb">
+          <li>Extract actionable insights from enterprise data</li>
+          <li>Visualize key metrics with interactive dashboards</li>
+          <li>Support data-driven strategic decisions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGES -->
+<section id="challenges">
+  <div class="wrap">
+    <div class="sh reveal">
+      <span class="ey">Pain Points We Solve</span>
+      <h2>Enterprise Information Challenges</h2>
+      <p class="ss">Transforming information management pain points into competitive advantages.</p>
+    </div>
+    <div class="chg">
+      <div class="chc reveal"><p class="prob">⚠ Scattered content across systems</p><p class="sol">→ <strong>Unified content management</strong> with OpenText ECM</p></div>
+      <div class="chc reveal"><p class="prob">⚠ Manual processes slowing business</p><p class="sol">→ <strong>Intelligent automation</strong> with OpenText AppWorks</p></div>
+      <div class="chc reveal"><p class="prob">⚠ Compliance &amp; security risks</p><p class="sol">→ <strong>Governance &amp; protection</strong> with OpenText InfoArchive</p></div>
+      <div class="chc reveal"><p class="prob">⚠ Poor collaboration &amp; productivity</p><p class="sol">→ <strong>Enhanced teamwork</strong> with OpenText Core Share</p></div>
+      <div class="chc reveal"><p class="prob">⚠ Limited insights from data</p><p class="sol">→ <strong>Business intelligence</strong> with OpenText Analytics</p></div>
+      <div class="chc reveal"><p class="prob">⚠ Outdated on-premise infrastructure</p><p class="sol">→ <strong>Cloud migration</strong> with OpenText Cloud Editions</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="case-studies">
+  <div class="wrap">
+    <div class="sh reveal">
+      <span class="ey">Client Success Stories</span>
+      <h2>Real Results from Enterprise Transformations</h2>
+      <p class="ss">Measurable outcomes delivered for leading organizations across industries.</p>
+    </div>
+    <div class="cag">
+      <div class="cac reveal">
+        <div class="cas"></div>
+        <div class="cab">
+          <span class="cat">Cloud Migration</span>
+          <h3>Fortune 500 Retailer Reduces Infrastructure Costs by 40%</h3>
+          <p>Complete cloud migration with automated CI/CD pipelines, resulting in faster deployments and significant cost savings within 12 months.</p>
+          <a href="#" class="cl" onclick="openModal('case1');return false;">Read Case Study →</a>
         </div>
-        
-    </header>
-
-    <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-navy to-navy/90 text-white overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 40px 40px;"></div>
+      </div>
+      <div class="cac reveal">
+        <div class="cas alt"></div>
+        <div class="cab">
+          <span class="cat" style="color:#3b9eda;background:rgba(59,158,218,0.1)">Digital Transformation</span>
+          <h3>Manufacturing Giant Achieves 60% Faster Time-to-Market</h3>
+          <p>OpenText AppWorks implementation and M365 integration streamlining operations across 15 global offices.</p>
+          <a href="#" class="cl" onclick="openModal('case2');return false;">Read Case Study →</a>
         </div>
-        <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32">
-            <div class="max-w-4xl">
-                <h1 class="font-montserrat font-bold text-5xl md:text-7xl leading-tight mb-6">
-                    Unlock the Power of Your <span class="text-accent">Information</span> with OpenText
-                </h1>
-                <p class="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed max-w-3xl">
-                    We help enterprises streamline content, automate processes, and maximize ROI with customized OpenText solutions
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button class="bg-accent text-white px-8 py-4 rounded-lg font-montserrat font-semibold text-lg hover:bg-accent/90 transition-colors">
-                        Book a Consultation
-                    </button>
-                    <button class="border-2 border-white text-white px-8 py-4 rounded-lg font-montserrat font-semibold text-lg hover:bg-white hover:text-navy transition-colors">
-                        See Case Studies
-                    </button>
-                </div>
-            </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+<section id="insights">
+  <div class="wrap">
+    <div class="sh reveal">
+      <span class="ey">Latest Thinking</span>
+      <h2>OpenText Insights</h2>
+      <p class="ss">Expert perspectives on OpenText solutions and enterprise information management.</p>
+    </div>
+    <div class="ing">
+      <div class="inc reveal">
+        <span class="int">Cloud Platform</span>
+        <h3>OpenText Cloud Editions 24.2: What's New</h3>
+        <p>Discover the latest features including improved AI capabilities, enhanced security, and new integration options.</p>
+        <a href="#" class="rm" onclick="openModal('art1');return false;">Read Article →</a>
+      </div>
+      <div class="inc reveal">
+        <span class="int" style="color:#a78bfa;background:rgba(167,139,250,0.1)">Compliance</span>
+        <h3>Information Governance in the Digital Age</h3>
+        <p>How modern enterprises leverage OpenText solutions to meet regulatory requirements and manage the information lifecycle.</p>
+        <a href="#" class="rm" onclick="openModal('art2');return false;">Read Article →</a>
+      </div>
+      <div class="inc reveal">
+        <span class="int" style="color:#f59e0b;background:rgba(245,158,11,0.1)">AI Innovation</span>
+        <h3>AI-Powered Content Management Revolution</h3>
+        <p>How OpenText's Magellan AI is transforming content management — from automated classification to intelligent insights.</p>
+        <a href="#" class="rm" onclick="openModal('art3');return false;">Read Article →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="ag">
+      <div class="at reveal">
+        <span class="ey">Who We Are</span>
+        <h2>About TeqCentric Solutions</h2>
+        <p>We are OpenText specialists with over 15 years of experience helping enterprises unlock the full potential of their information assets.</p>
+        <p>Our certified consultants have delivered 200+ projects across industries — from Fortune 500 companies to fast-growing mid-market organizations. We combine deep technical expertise with business acumen to drive measurable outcomes.</p>
+        <div class="as">
+          <div class="asc"><span class="n">200+</span><span class="l">Projects Delivered</span></div>
+          <div class="asc"><span class="n">15+</span><span class="l">Years Experience</span></div>
+          <div class="asc"><span class="n">50+</span><span class="l">Enterprise Clients</span></div>
+          <div class="asc"><span class="n">24/7</span><span class="l">Support Available</span></div>
         </div>
-    </section>
+      </div>
+      <div class="certs reveal">
+        <span class="ey" style="display:block;margin-bottom:16px">Our Certifications</span>
+        <div class="ci2"><div class="cico">🏅</div><span>OpenText Certified Professional</span></div>
+        <div class="ci2"><div class="cico">☁️</div><span>OpenText Cloud Specialist</span></div>
+        <div class="ci2"><div class="cico">🔒</div><span>Information Governance Expert</span></div>
+        <div class="ci2"><div class="cico">🤖</div><span>Business Process Automation Certified</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="font-montserrat font-bold text-4xl md:text-5xl text-navy mb-6">Our OpenText Services</h2>
-                <p class="text-xl text-coolGrey max-w-3xl mx-auto">Comprehensive OpenText solutions designed to unlock the power of your enterprise information</p>
-            </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service Card 1 -->
-                <div class="bg-lightGrey/50 p-8 rounded-xl hover:shadow-lg transition-shadow">
-                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-montserrat font-bold text-xl text-navy mb-4">Content Management & Collaboration</h3>
-                    <p class="text-coolGrey mb-4">Centralize documents and records for easy access and enhanced team collaboration.</p>
-                    <ul class="text-sm text-coolGrey space-y-2">
-                        <li>• Centralize documents and records for easy access</li>
-                        <li>• Enhance team collaboration with secure sharing</li>
-                        <li>• Ensure regulatory compliance effortlessly</li>
-                    </ul>
-                </div>
-
-                <!-- Service Card 2 -->
-                <div class="bg-lightGrey/50 p-8 rounded-xl hover:shadow-lg transition-shadow">
-                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-montserrat font-bold text-xl text-navy mb-4">Business Process Automation</h3>
-                    <p class="text-coolGrey mb-4">Streamline workflows across departments and reduce manual operational bottlenecks.</p>
-                    <ul class="text-sm text-coolGrey space-y-2">
-                        <li>• Streamline workflows across departments</li>
-                        <li>• Reduce manual effort and operational bottlenecks</li>
-                        <li>• Accelerate decision-making with automated processes</li>
-                    </ul>
-                </div>
-
-                <!-- Service Card 3 -->
-                <div class="bg-lightGrey/50 p-8 rounded-xl hover:shadow-lg transition-shadow">
-                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-montserrat font-bold text-xl text-navy mb-4">Enterprise Information Management</h3>
-                    <p class="text-coolGrey mb-4">Organize and classify critical business data with advanced security controls.</p>
-                    <ul class="text-sm text-coolGrey space-y-2">
-                        <li>• Organize and classify critical business data</li>
-                        <li>• Secure sensitive information with advanced controls</li>
-                        <li>• Make information easily searchable and actionable</li>
-                    </ul>
-                </div>
-
-                <!-- Service Card 4 -->
-                <div class="bg-lightGrey/50 p-8 rounded-xl hover:shadow-lg transition-shadow">
-                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-montserrat font-bold text-xl text-navy mb-4">Cloud & Digital Transformation</h3>
-                    <p class="text-coolGrey mb-4">Deploy scalable cloud-based OpenText solutions and modernize IT infrastructure.</p>
-                    <ul class="text-sm text-coolGrey space-y-2">
-                        <li>• Deploy scalable cloud-based OpenText solutions</li>
-                        <li>• Modernize IT infrastructure for future growth</li>
-                        <li>• Enable remote access and collaboration securely</li>
-                    </ul>
-                </div>
-
-                <!-- Service Card 5 -->
-                <div class="bg-lightGrey/50 p-8 rounded-xl hover:shadow-lg transition-shadow">
-                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-montserrat font-bold text-xl text-navy mb-4">Data Analytics & Reporting</h3>
-                    <p class="text-coolGrey mb-4">Extract actionable insights from enterprise data with interactive dashboards.</p>
-                    <ul class="text-sm text-coolGrey space-y-2">
-                        <li>• Extract actionable insights from enterprise data</li>
-                        <li>• Visualize key metrics with interactive dashboards</li>
-                        <li>• Support data-driven strategic decisions</li>
-                    </ul>
-                </div>
-            </div>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="cog">
+      <div class="coi reveal">
+        <span class="ey">Get In Touch</span>
+        <h2>Ready to Transform Your Enterprise?</h2>
+        <p>Let's discuss your OpenText needs and how we can accelerate your digital transformation journey.</p>
+        <div class="coit">
+          <div class="coitem">
+            <div class="coin">✉️</div>
+            <div><div class="colabel">Email</div><div class="coval"><a href="mailto:info@teqcentric.com">info@teqcentric.com</a></div></div>
+          </div>
+          <div class="coitem">
+            <div class="coin">📞</div>
+            <div><div class="colabel">Phone</div><div class="coval"><a href="tel:+14034042587">+1 (403) 404-2587</a></div></div>
+          </div>
+          <div class="coitem">
+            <div class="coin">📍</div>
+            <div><div class="colabel">Office</div><div class="coval">Calgary, Alberta, Canada</div></div>
+          </div>
         </div>
-    </section>
-
-    <!-- Problems → Solutions Section -->
-    <section class="py-24 bg-lightGrey/30">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="font-montserrat font-bold text-4xl md:text-5xl text-navy mb-6">Enterprise Information Challenges We Solve</h2>
-                <p class="text-xl text-coolGrey max-w-3xl mx-auto">Transforming information management pain points into competitive advantages with OpenText</p>
-            </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-xl shadow-sm">
-                    <div class="flex items-start space-x-4">
-                        <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="font-montserrat font-semibold text-navy mb-2">Scattered content across systems</h3>
-                            <div class="w-8 h-0.5 bg-accent mb-3"></div>
-                            <p class="text-coolGrey">Unified content management with OpenText ECM</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-xl shadow-sm">
-                    <div class="flex items-start space-x-4">
-                        <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="font-montserrat font-semibold text-navy mb-2">Manual processes slowing business</h3>
-                            <div class="w-8 h-0.5 bg-accent mb-3"></div>
-                            <p class="text-coolGrey">Intelligent automation with OpenText AppWorks</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-xl shadow-sm">
-                    <div class="flex items-start space-x-4">
-                        <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="font-montserrat font-semibold text-navy mb-2">Compliance & security risks</h3>
-                            <div class="w-8 h-0.5 bg-accent mb-3"></div>
-                            <p class="text-coolGrey">Governance & protection with OpenText InfoArchive</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-xl shadow-sm">
-                    <div class="flex items-start space-x-4">
-                        <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="font-montserrat font-semibold text-navy mb-2">Poor collaboration & productivity</h3>
-                            <div class="w-8 h-0.5 bg-accent mb-3"></div>
-                            <p class="text-coolGrey">Enhanced teamwork with OpenText Core Share</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-xl shadow-sm">
-                    <div class="flex items-start space-x-4">
-                        <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="font-montserrat font-semibold text-navy mb-2">Limited insights from data</h3>
-                            <div class="w-8 h-0.5 bg-accent mb-3"></div>
-                            <p class="text-coolGrey">Business intelligence with OpenText Analytics</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-xl shadow-sm">
-                    <div class="flex items-start space-x-4">
-                        <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                            <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="font-montserrat font-semibold text-navy mb-2">Outdated on-premise infrastructure</h3>
-                            <div class="w-8 h-0.5 bg-accent mb-3"></div>
-                            <p class="text-coolGrey">Cloud migration with OpenText Cloud Editions</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="cf reveal">
+        <div class="fr">
+          <div class="fg"><label for="fname">First Name</label><input type="text" id="fname" placeholder="John" /></div>
+          <div class="fg"><label for="lname">Last Name</label><input type="text" id="lname" placeholder="Smith" /></div>
         </div>
-    </section>
-
-    <!-- Case Studies Section -->
-    <section id="case-studies" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="font-montserrat font-bold text-4xl md:text-5xl text-navy mb-6">Client Success Stories</h2>
-                <p class="text-xl text-coolGrey max-w-3xl mx-auto">Real results from enterprise transformations</p>
-            </div>
-            
-            <!-- Client Logos -->
-            <div class="flex justify-center items-center space-x-12 mb-16 opacity-60">
-                <div class="font-montserrat font-bold text-2xl text-coolGrey">ACME Corp</div>
-                <div class="font-montserrat font-bold text-2xl text-coolGrey">TechFlow</div>
-                <div class="font-montserrat font-bold text-2xl text-coolGrey">GlobalTech</div>
-                <div class="font-montserrat font-bold text-2xl text-coolGrey">InnovateCo</div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="bg-lightGrey/30 p-8 rounded-xl">
-                    <div class="text-accent font-montserrat font-semibold text-sm uppercase tracking-wide mb-4">Cloud Migration</div>
-                    <h3 class="font-montserrat font-bold text-2xl text-navy mb-4">Fortune 500 Retailer Reduces Infrastructure Costs by 40%</h3>
-                    <p class="text-coolGrey mb-6">Complete cloud migration with automated CI/CD pipelines, resulting in faster deployments and significant cost savings.</p>
-                    <div class="flex items-center text-accent font-montserrat font-semibold">
-                        Read Case Study
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </div>
-                </div>
-
-                <div class="bg-lightGrey/30 p-8 rounded-xl">
-                    <div class="text-accent font-montserrat font-semibold text-sm uppercase tracking-wide mb-4">Digital Transformation</div>
-                    <h3 class="font-montserrat font-bold text-2xl text-navy mb-4">Manufacturing Giant Achieves 60% Faster Time-to-Market</h3>
-                    <p class="text-coolGrey mb-6">Modern workplace implementation with ServiceNow and M365, streamlining operations across 15 global offices.</p>
-                    <div class="flex items-center text-accent font-montserrat font-semibold">
-                        Read Case Study
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
+        <div class="fg"><label for="femail">Work Email</label><input type="email" id="femail" placeholder="john@company.com" /></div>
+        <div class="fg"><label for="fcompany">Company</label><input type="text" id="fcompany" placeholder="Your Company" /></div>
+        <div class="fg">
+          <label for="fservice">Service of Interest</label>
+          <select id="fservice">
+            <option value="">Select a service...</option>
+            <option>Content Management &amp; Collaboration</option>
+            <option>Business Process Automation</option>
+            <option>Enterprise Information Management</option>
+            <option>Cloud &amp; Digital Transformation</option>
+            <option>Data Analytics &amp; Reporting</option>
+            <option>General Consultation</option>
+          </select>
         </div>
-    </section>
+        <div class="fg"><label for="fmessage">Message</label><textarea id="fmessage" placeholder="Tell us about your OpenText needs and project scope..."></textarea></div>
+        <button class="fsub" id="main-btn" onclick="handleMainSubmit()">Send Message</button>
+        <div class="fmsg" id="main-msg"></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Insights Section -->
-    <section id="insights" class="py-24 bg-lightGrey/30">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="font-montserrat font-bold text-4xl md:text-5xl text-navy mb-6">Latest OpenText Insights</h2>
-                <p class="text-xl text-coolGrey max-w-3xl mx-auto">Expert perspectives on OpenText solutions and enterprise information management</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <article class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer" onclick="window.open('https://www.opentext.com/about/news-events/press-releases/opentext-announces-cloud-editions-24-2', '_blank')">
-                    <div class="h-48 bg-gradient-to-br from-accent/20 to-navy/20 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-accent/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
-                        </svg>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-accent font-montserrat font-semibold text-sm uppercase tracking-wide mb-2">Cloud Platform</div>
-                        <h3 class="font-montserrat font-bold text-xl text-navy mb-3">OpenText Cloud Editions 24.2: What's New</h3>
-                        <p class="text-coolGrey mb-4">Discover the latest features and enhancements in OpenText Cloud Editions 24.2, including improved AI capabilities and enhanced security.</p>
-                        <div class="flex items-center text-accent font-montserrat font-semibold">
-                            Read Article
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
-                    </div>
-                </article>
+<!-- CTA BANNER -->
+<div class="ctab">
+  <div class="ctai reveal">
+    <h2>Ready to Unlock Enterprise Velocity?</h2>
+    <p>Let's discuss how we can accelerate your digital transformation and drive measurable business outcomes.</p>
+    <a href="#contact" class="btn-p">Start a Project</a>
+  </div>
+</div>
 
-                <article class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer" onclick="window.open('https://www.opentext.com/what-we-do/products/information-governance', '_blank')">
-                    <div class="h-48 bg-gradient-to-br from-navy/20 to-accent/20 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-accent/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                        </svg>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-accent font-montserrat font-semibold text-sm uppercase tracking-wide mb-2">Compliance</div>
-                        <h3 class="font-montserrat font-bold text-xl text-navy mb-3">Information Governance in the Digital Age</h3>
-                        <p class="text-coolGrey mb-4">How modern enterprises are leveraging OpenText solutions to meet regulatory requirements and manage information lifecycle effectively.</p>
-                        <div class="flex items-center text-accent font-montserrat font-semibold">
-                            Read Article
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
-                    </div>
-                </article>
+<!-- FOOTER -->
+<footer>
+  <div class="fi">
+    <div class="fl">Teq<em>Centric</em> Solutions</div>
+    <ul class="fnl">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#case-studies">Case Studies</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="mailto:info@teqcentric.com">Email Us</a></li>
+    </ul>
+  </div>
+  <p class="fc">
+    © 2025 TeqCentric Solutions. All rights reserved. · Calgary, Alberta, Canada ·
+    <a href="mailto:info@teqcentric.com">info@teqcentric.com</a> ·
+    <a href="tel:+14034042587">+1 (403) 404-2587</a>
+  </p>
+</footer>
 
-                <article class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer" onclick="window.open('https://www.opentext.com/what-we-do/products/artificial-intelligence-and-analytics', '_blank')">
-                    <div class="h-48 bg-gradient-to-br from-accent/20 to-navy/20 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-accent/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                        </svg>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-accent font-montserrat font-semibold text-sm uppercase tracking-wide mb-2">AI Innovation</div>
-                        <h3 class="font-montserrat font-bold text-xl text-navy mb-3">AI-Powered Content Management Revolution</h3>
-                        <p class="text-coolGrey mb-4">Explore how OpenText's AI capabilities are transforming content management, from automated classification to intelligent insights.</p>
-                        <div class="flex items-center text-accent font-montserrat font-semibold">
-                            Read Article
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
+<!-- MODAL -->
+<div class="mo" id="modal-overlay">
+  <div class="mb">
+    <button class="mcl" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
 
-    <!-- About Section -->
-    <section id="about" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="font-montserrat font-bold text-4xl md:text-5xl text-navy mb-6">About TeqCentric Solutions</h2>
-                    <p class="text-xl text-coolGrey mb-6">We are OpenText specialists with over 15 years of experience helping enterprises unlock the full potential of their information assets.</p>
-                    <p class="text-coolGrey mb-8">Our team of certified OpenText consultants has successfully delivered 200+ projects across industries, from Fortune 500 companies to mid-market organizations. We combine deep technical expertise with business acumen to drive measurable outcomes.</p>
-                    <div class="grid grid-cols-2 gap-8">
-                        <div>
-                            <div class="text-3xl font-montserrat font-bold text-accent mb-2">200+</div>
-                            <div class="text-coolGrey">Projects Delivered</div>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-montserrat font-bold text-accent mb-2">15+</div>
-                            <div class="text-coolGrey">Years Experience</div>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-montserrat font-bold text-accent mb-2">50+</div>
-                            <div class="text-coolGrey">Enterprise Clients</div>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-montserrat font-bold text-accent mb-2">24/7</div>
-                            <div class="text-coolGrey">Support Available</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-lightGrey/30 p-8 rounded-xl">
-                    <h3 class="font-montserrat font-bold text-2xl text-navy mb-6">Our Certifications</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-3 h-3 bg-accent rounded-full"></div>
-                            <span class="text-coolGrey">OpenText Certified Professional</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <div class="w-3 h-3 bg-accent rounded-full"></div>
-                            <span class="text-coolGrey">OpenText Cloud Specialist</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <div class="w-3 h-3 bg-accent rounded-full"></div>
-                            <span class="text-coolGrey">Information Governance Expert</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <div class="w-3 h-3 bg-accent rounded-full"></div>
-                            <span class="text-coolGrey">Business Process Automation Certified</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+  // ─────────────────────────────────────────────────────────
+  // EmailJS setup
+  // 1. Sign up free at https://www.emailjs.com
+  // 2. Create a service (Gmail/Outlook) → copy Service ID
+  // 3. Create an email template → copy Template ID
+  //    Template variables to use: {{from_name}}, {{from_email}},
+  //    {{company}}, {{service}}, {{message}}
+  // 4. Copy your Public Key from Account > API Keys
+  // Replace the three values below:
+  // ─────────────────────────────────────────────────────────
+  const EJ_PUB  = 'YOUR_PUBLIC_KEY';
+  const EJ_SVC  = 'YOUR_SERVICE_ID';
+  const EJ_TPL  = 'YOUR_TEMPLATE_ID';
+  emailjs.init({ publicKey: EJ_PUB });
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 bg-lightGrey/30">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="font-montserrat font-bold text-4xl md:text-5xl text-navy mb-6">Get In Touch</h2>
-                <p class="text-xl text-coolGrey max-w-3xl mx-auto">Ready to transform your enterprise information management? Let's discuss your OpenText needs.</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-16">
-                <div>
-                    <h3 class="font-montserrat font-bold text-2xl text-navy mb-6">Contact Information</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-montserrat font-semibold text-navy mb-1">Email</h4>
-                                <p class="text-coolGrey">info@teqcentric.com</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-montserrat font-semibold text-navy mb-1">Phone</h4>
-                                <p class="text-coolGrey">+1 (403) 404-2587</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-montserrat font-semibold text-navy mb-1">Office</h4>
-                                <p class="text-coolGrey">Calgary</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-sm">
-                    <h3 class="font-montserrat font-bold text-2xl text-navy mb-6">Send us a Message</h3>
-                    <form class="space-y-6">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-navy font-montserrat font-semibold mb-2">First Name</label>
-                                <input type="text" class="w-full px-4 py-3 border border-lightGrey rounded-lg focus:outline-none focus:border-accent">
-                            </div>
-                            <div>
-                                <label class="block text-navy font-montserrat font-semibold mb-2">Last Name</label>
-                                <input type="text" class="w-full px-4 py-3 border border-lightGrey rounded-lg focus:outline-none focus:border-accent">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-navy font-montserrat font-semibold mb-2">Email</label>
-                            <input type="email" class="w-full px-4 py-3 border border-lightGrey rounded-lg focus:outline-none focus:border-accent">
-                        </div>
-                        <div>
-                            <label class="block text-navy font-montserrat font-semibold mb-2">Company</label>
-                            <input type="text" class="w-full px-4 py-3 border border-lightGrey rounded-lg focus:outline-none focus:border-accent">
-                        </div>
-                        <div>
-                            <label class="block text-navy font-montserrat font-semibold mb-2">Message</label>
-                            <textarea rows="4" class="w-full px-4 py-3 border border-lightGrey rounded-lg focus:outline-none focus:border-accent"></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-accent text-white px-8 py-4 rounded-lg font-montserrat font-semibold hover:bg-accent/90 transition-colors">
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+  // Scroll reveal
+  const revs = document.querySelectorAll('.reveal');
+  const ro = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('in'), i * 55); ro.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  revs.forEach(el => ro.observe(el));
 
-    <!-- CTA Section -->
-    <section class="py-24 bg-navy text-white">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="font-montserrat font-bold text-4xl md:text-5xl mb-6">Ready to unlock enterprise velocity?</h2>
-            <p class="text-xl text-white/90 mb-12 max-w-3xl mx-auto">Let's discuss how we can accelerate your digital transformation and drive measurable business outcomes.</p>
-            <button class="bg-accent text-white px-12 py-4 rounded-lg font-montserrat font-semibold text-lg hover:bg-accent/90 transition-colors">
-                Start a Project
-            </button>
-        </div>
-    </section>
+  // Nav shrink
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => { nav.style.height = window.scrollY > 60 ? '54px' : '68px'; });
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-lightGrey py-16">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div class="md:col-span-2">
-                    <div class="font-montserrat font-bold text-2xl text-navy mb-4">TeqCentric Solutions</div>
-                    <p class="text-coolGrey mb-6 max-w-md">Digital consulting and enterprise solutions that accelerate business outcomes through strategic technology implementation.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-coolGrey hover:text-accent transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="text-coolGrey hover:text-accent transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="text-coolGrey hover:text-accent transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="font-montserrat font-semibold text-navy mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-coolGrey">
-                        <li><a href="#" class="hover:text-accent transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-accent transition-colors">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-accent transition-colors">Legal</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-montserrat font-semibold text-navy mb-4">Contact</h4>
-                    <ul class="space-y-2 text-coolGrey">
-                        <li>info@teqcentric.com</li>
-                        <li>+1 4034042587</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-lightGrey mt-12 pt-8 text-center text-coolGrey">
-                <p>&copy; 2024 TeqCentric Solutions All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+  // ─── Send via EmailJS
+  async function sendViaEmailJS(params, btnEl, msgEl) {
+    btnEl.disabled = true;
+    const orig = btnEl.textContent;
+    btnEl.textContent = 'Sending…';
+    try {
+      await emailjs.send(EJ_SVC, EJ_TPL, {
+        from_name:  params.name,
+        from_email: params.email,
+        company:    params.company || 'Not provided',
+        service:    params.service || 'Not specified',
+        message:    params.message,
+        to_email:   'info@teqcentric.com',
+      });
+      msgEl.className = 'fmsg ok';
+      msgEl.textContent = '✓ Message sent! We\'ll be in touch within one business day.';
+      btnEl.textContent = 'Sent ✓';
+    } catch(err) {
+      console.error(err);
+      msgEl.className = 'fmsg err';
+      msgEl.textContent = '✗ Send failed. Please email us directly: info@teqcentric.com';
+      btnEl.disabled = false;
+      btnEl.textContent = orig;
+    }
+  }
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+  // ─── Main contact form
+  function handleMainSubmit() {
+    const fname   = document.getElementById('fname').value.trim();
+    const lname   = document.getElementById('lname').value.trim();
+    const email   = document.getElementById('femail').value.trim();
+    const company = document.getElementById('fcompany').value.trim();
+    const service = document.getElementById('fservice').value;
+    const message = document.getElementById('fmessage').value.trim();
+    const msgEl   = document.getElementById('main-msg');
+    const btnEl   = document.getElementById('main-btn');
+    if (!fname || !email || !message) {
+      msgEl.className = 'fmsg err'; msgEl.textContent = 'Please fill in your name, email, and message.'; return;
+    }
+    sendViaEmailJS({ name: `${fname} ${lname}`.trim(), email, company, service, message }, btnEl, msgEl);
+  }
 
-        // Add scroll effect to header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.classList.add('shadow-lg');
-            } else {
-                header.classList.remove('shadow-lg');
-            }
-        });
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f352be26bb3d45',t:'MTc1Nzg4ODk2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+  // ─── Modal data
+  const MD = {
+    case1: {
+      tag: 'Cloud Migration', cta: 'Discuss a Similar Project',
+      title: 'Fortune 500 Retailer Reduces Infrastructure Costs by 40%',
+      body: `<p>A leading Fortune 500 retailer was struggling with ageing on-premise infrastructure, slow deployment cycles, and unpredictable IT costs. TeqCentric designed and executed a full OpenText Cloud migration strategy.</p>
+             <p><strong>What we delivered:</strong></p><ul>
+               <li>Full migration of OpenText Content Suite to OpenText Cloud Editions</li>
+               <li>Automated CI/CD pipelines reducing deployment time by 70%</li>
+               <li>Consolidated 12 disparate content repositories into one governed platform</li>
+               <li>Role-based access controls across 8,000+ users</li>
+               <li>40% reduction in total infrastructure costs within 12 months</li>
+             </ul><p>Completed in 9 months with zero production downtime. The client has since expanded the platform to two additional regions.</p>`
+    },
+    case2: {
+      tag: 'Digital Transformation', cta: 'Discuss a Similar Project',
+      title: 'Manufacturing Giant Achieves 60% Faster Time-to-Market',
+      body: `<p>A global manufacturing firm with 15 offices needed to modernize content and process workflows. Manual approvals, siloed data, and paper-based processes were slowing product launches.</p>
+             <p><strong>What we delivered:</strong></p><ul>
+               <li>OpenText AppWorks implementation for automated engineering change orders</li>
+               <li>Integration with SAP ERP and Microsoft 365 across all 15 offices</li>
+               <li>Digital document management replacing 4 million paper records</li>
+               <li>Real-time dashboards giving leadership full pipeline visibility</li>
+               <li>60% reduction in time-to-market for new product lines</li>
+             </ul><p>Delivered in phases over 14 months with zero production downtime.</p>`
+    },
+    art1: {
+      tag: 'Cloud Platform', cta: 'Talk to a Consultant',
+      title: "OpenText Cloud Editions 24.2: What's New",
+      body: `<p>OpenText Cloud Editions 24.2 brings significant enhancements focused on AI-powered productivity, enhanced security, and deeper integration capabilities.</p>
+             <p><strong>Key highlights in 24.2:</strong></p><ul>
+               <li>Magellan AI integration across Content Suite and Extended ECM</li>
+               <li>Automated records classification using machine learning models</li>
+               <li>Enhanced zero-trust security with granular permission controls</li>
+               <li>Improved Salesforce and Microsoft Teams connectors out of the box</li>
+               <li>Up to 30% faster search performance</li>
+               <li>Expanded support for healthcare and financial services sectors</li>
+             </ul><p>Want a walkthrough of what's new and how it applies to your environment? Our certified consultants are ready to help.</p>`
+    },
+    art2: {
+      tag: 'Compliance', cta: 'Book a Governance Assessment',
+      title: 'Information Governance in the Digital Age',
+      body: `<p>As regulatory landscapes grow more complex — GDPR, PIPEDA, SOX, HIPAA — enterprises need a proactive approach to information governance. OpenText provides a comprehensive framework for the full information lifecycle.</p>
+             <p><strong>Core governance capabilities:</strong></p><ul>
+               <li>Automated retention schedules tied to regulatory requirements</li>
+               <li>Legal hold management with full audit trail</li>
+               <li>Sensitive data discovery and classification at scale</li>
+               <li>Defensible disposal of records past retention dates</li>
+               <li>Real-time compliance dashboards for legal and compliance teams</li>
+             </ul><p>Our team can assess your current state and build a governance roadmap tailored to your industry.</p>`
+    },
+    art3: {
+      tag: 'AI Innovation', cta: 'Explore AI Solutions',
+      title: 'AI-Powered Content Management Revolution',
+      body: `<p>OpenText's Magellan AI platform is fundamentally changing how enterprises interact with content — moving from manual retrieval to intelligent, context-aware information management.</p>
+             <p><strong>What AI brings to content management:</strong></p><ul>
+               <li>Automated document classification on ingestion — no manual tagging</li>
+               <li>Natural language search across millions of documents in seconds</li>
+               <li>Anomaly detection to flag unusual access patterns and data risks</li>
+               <li>Intelligent summarisation of lengthy contracts and reports</li>
+               <li>Predictive analytics on content usage to guide information architecture</li>
+             </ul><p>Early adopters report 50–70% reductions in time spent locating and processing information.</p>`
+    }
+  };
+
+  function openModal(id) {
+    const d = MD[id]; if (!d) return;
+    document.getElementById('modal-content').innerHTML = `
+      <span class="mtag">${d.tag}</span>
+      <h3>${d.title}</h3>
+      <div class="mbt">${d.body}</div>
+      <div class="mdiv"></div>
+      <p class="mft">Interested? Drop us a message and we'll follow up shortly.</p>
+      <div class="fg"><label>Your Name</label><input type="text" id="m-name" placeholder="Jane Smith" /></div>
+      <div class="fg"><label>Work Email</label><input type="email" id="m-email" placeholder="jane@company.com" /></div>
+      <div class="fg"><label>Message (optional)</label><textarea id="m-msg" placeholder="Tell us about your project...">${d.cta === 'Discuss a Similar Project' ? "I'd like to discuss a similar project for our organization." : ''}</textarea></div>
+      <button class="mfsub" id="modal-btn" onclick="handleModalSubmit('${d.cta}')">
+        ${d.cta} →
+      </button>
+      <div class="fmsg" id="modal-feedback"></div>
+    `;
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function handleModalSubmit(ctaLabel) {
+    const name  = (document.getElementById('m-name')?.value || '').trim();
+    const email = (document.getElementById('m-email')?.value || '').trim();
+    const msg   = (document.getElementById('m-msg')?.value || '').trim();
+    const fb    = document.getElementById('modal-feedback');
+    const btn   = document.getElementById('modal-btn');
+    if (!name || !email) {
+      fb.className = 'fmsg err'; fb.textContent = 'Please enter your name and email.'; return;
+    }
+    sendViaEmailJS({ name, email, company: '', service: ctaLabel, message: msg || ctaLabel }, btn, fb);
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('modal-overlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
