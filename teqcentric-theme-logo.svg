@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <!-- Transparent Background -->
+  <rect width="100%" height="100%" fill="none"/>
+  
+  <g transform="translate(200, 200)">
+    <!-- Deep Theme Fills matching IMG_3486.png -->
+    <polygon points="0,-150 130,-75 130,75 0,150 -130,75 -130,-75" fill="#060F1E" opacity="0.7"/>
+    
+    <!-- Internal Isometric Grid Lines -->
+    <line x1="0" y1="0" x2="0" y2="-150" stroke="#00D2FF" stroke-width="4" opacity="0.35"/>
+    <line x1="0" y1="0" x2="130" y2="75" stroke="#00D2FF" stroke-width="4" opacity="0.35"/>
+    <line x1="0" y1="0" x2="-130" y2="75" stroke="#00D2FF" stroke-width="4" opacity="0.35"/>
+    
+    <!-- Outer Hexagon Frame (Theme Color) -->
+    <polygon points="0,-150 130,-75 130,75 0,150 -130,75 -130,-75" fill="none" stroke="#00D2FF" stroke-width="8" stroke-linejoin="round"/>
+    
+    <!-- Network Nodes / Vertices -->
+    <circle cx="0" cy="-150" r="10" fill="#00D2FF"/>
+    <circle cx="130" cy="-75" r="10" fill="#00D2FF"/>
+    <circle cx="130" cy="75" r="10" fill="#00D2FF"/>
+    <circle cx="0" cy="150" r="10" fill="#00D2FF"/>
+    <circle cx="-130" cy="75" r="10" fill="#00D2FF"/>
+    <circle cx="-130" cy="-75" r="10" fill="#00D2FF"/>
+    
+    <!-- Inner Frame Solid Hexagon -->
+    <polygon points="0,-68 59,-34 59,34 0,68 -59,34 -59,-34" fill="#060F1E" stroke="#00D2FF" stroke-width="5" stroke-linejoin="round"/>
+    
+    <!-- Centered Bright Cyan "T" -->
+    <text x="0" y="24" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="72" fill="#00D2FF" text-anchor="middle">T</text>
+  </g>
+</svg>
